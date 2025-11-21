@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "cat-book",
+    "name": "Cat Book",
     "slug": "cat-book",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dbpradana.catbook",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +23,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.dbpradana.catbook"
     },
     "web": {
       "output": "static",
@@ -38,11 +43,50 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/CircularStd-Book.ttf",
+            "./assets/fonts/CircularStd-Medium.ttf"
+          ],
+          "android": {
+            "fonts": [
+              {
+                "fontFamily": "Circular Std",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/CircularStd-Book.ttf",
+                    "weight": 450
+                  },
+                  {
+                    "path": "./assets/fonts/CircularStd-Medium.ttf",
+                    "weight": 500
+                  }
+                ]
+              }
+            ]
+          },
+          "ios": {
+            "fonts": [
+              "./assets/fonts/CircularStd-Book.ttf",
+              "./assets/fonts/CircularStd-Medium.ttf"
+            ]
+          }
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "0571477c-e0e2-4261-bea1-0c7b6cf802ba"
+      }
+    },
+    "owner": "dbpradana"
   }
 }
