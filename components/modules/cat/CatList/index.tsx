@@ -3,14 +3,19 @@ import { useRouter } from 'expo-router';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { CatListItem } from './item';
 
-export const CatList: React.FC = ({ }) => {
+interface CatListProps {
+  data?: any;
+}
+
+export const CatList: React.FC<CatListProps> = ({ data }) => {
   const router = useRouter();
+  const catList = data?.cats ?? [];
 
   return (
     <FlatList
-      data={Array.from({ length: 3 })}
+      data={catList}
       keyExtractor={(_, index) => `${index}`}
-      renderItem={() => <CatListItem />}
+      renderItem={({ item }) => <CatListItem data={item} />}
       contentContainerStyle={styles.contentContainer}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />

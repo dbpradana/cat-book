@@ -2,40 +2,9 @@
 import { OwnerList, ThemedText } from '@/components';
 import { spacing } from '@/constants';
 import { Colors } from '@/constants/theme';
-import mockDB from '@/services/mockDB';
-import { useEffect, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 export default function CatOwnerHomeScreen() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [pagination, setPagination] = useState(null);
-  const [sortBy, setSortBy] = useState<'name' | 'cats'>('name');
-
-  const loadUsers = async () => {
-    setLoading(true);
-    const response = await mockDB.loadUserList({
-      page,
-      sortBy,
-      limit: 10,
-    });
-
-    if (response.success) {
-      // setUsers(response.data);
-      // setPagination(response.pagination);
-      console.log('Loaded users:', response.data);
-    } else {
-      console.error('Error loading users:', response.error);
-    }
-    setLoading(false);
-  };
-
-  // Reload when page or filters change
-  useEffect(() => {
-    loadUsers();
-  }, [page, sortBy]);
-
   return (
     <View style={styles.mainContainer}>
       <View style={styles.contentHeader}>

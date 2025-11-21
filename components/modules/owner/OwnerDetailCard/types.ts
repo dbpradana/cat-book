@@ -1,3 +1,5 @@
 import { ViewProps } from 'react-native';
 
-export type OwnerDetailCardProps = ViewProps;
+export interface OwnerDetailCardProps extends ViewProps {
+  data?: any;
+};

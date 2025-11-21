@@ -3,15 +3,19 @@ import { Colors, spacing } from '@/constants';
 import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, View } from 'react-native';
 
-export const CatListItem: React.FC = ({ }) => {
+interface CatListItemProps {
+  data?: any;
+}
+
+export const CatListItem: React.FC<CatListItemProps> = ({ data }) => {
   const router = useRouter();
 
   return (
     <Pressable onPress={() => { }}>
       <Card style={styles.card}>
         <View style={styles.textContainer}>
-          <ThemedText weight={'medium'}>Kitty</ThemedText>
-          <ThemedText size={12} color={Colors.text.secondary}>Age: 3 years 1 month</ThemedText>
+          <ThemedText weight={'medium'}>{data?.name}</ThemedText>
+          <ThemedText size={12} color={Colors.text.secondary}>{`Age: ${data?.age} years ${data?.month ?? '2'} months`}</ThemedText>
         </View>
 
         <Chevron />

@@ -4,21 +4,21 @@ import { useRouter } from 'expo-router';
 import { Image, StyleSheet, View } from 'react-native';
 import { OwnerDetailCardProps } from './types';
 
-export const OwnerDetailCard: React.FC<OwnerDetailCardProps> = ({ style }) => {
+export const OwnerDetailCard: React.FC<OwnerDetailCardProps> = ({ data, style }) => {
   const router = useRouter();
 
   return (
     <Card style={[styles.card, style]}>
-      <OwnersInitialView size={'large'} />
+      <OwnersInitialView size={'large'} data={data} />
 
       <View style={styles.flex}>
         <View style={{ gap: 8 }}>
           <ThemedText size={12} color={Colors.text.secondary}>First Name</ThemedText>
-          <ThemedText>Roman</ThemedText>
+          <ThemedText>{data?.firstName}</ThemedText>
         </View>
         <View style={{ gap: 8 }}>
           <ThemedText size={12} color={Colors.text.secondary}>Last Name</ThemedText>
-          <ThemedText>Pearce</ThemedText>
+          <ThemedText>{data?.lastName}</ThemedText>
         </View>
       </View>
 

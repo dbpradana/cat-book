@@ -1,6 +1,8 @@
 import { ThemedText } from '@/components/common';
 import { Colors, spacing } from '@/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { OwnersInitialView } from '../OwnersInitialView';
@@ -13,6 +15,17 @@ export const Header: React.FC<HeaderProps> = ({
   containerStyle,
 }) => {
   const router = useRouter();
+  const [master, setMaster] = useState(null);
+
+  const getMasterData = async () => {
+    try {
+      const data = await AsyncStorage.getItem('MASTER');
+      const parsedData = data ? JSON.parse(data) : null;
+      setMaster(parsedData);
+    } catch (error) {
+      throw error;
+    }
+  }
 
   const backButtonPressHandler = () => {
     if (!!onBackButtonPress) return onBackButtonPress();
@@ -27,6 +40,10 @@ export const Header: React.FC<HeaderProps> = ({
     ...styles.masterContainer,
     ...(showBackButton && { marginRight: 24 }),
   });
+
+  useEffect(() => {
+    getMasterData();
+  }, [])
 
   return (
     <SafeAreaView edges={['top']} style={[styles.container, containerStyle]} >
@@ -44,12 +61,14 @@ export const Header: React.FC<HeaderProps> = ({
           </TouchableOpacity>
         )}
 
-        <View style={masterContainerStyle}>
-          <OwnersInitialView />
-          <ThemedText weight={'medium'}>
-            Master: Roman Pearce
-          </ThemedText>
-        </View>
+        {!!master && (
+          <View style={masterContainerStyle}>
+            <OwnersInitialView data={master}/>
+            <ThemedText weight={'medium'}>
+              {`Master: ${master?.firstName} ${master?.lastName}`}
+            </ThemedText>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );

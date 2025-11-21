@@ -1,26 +1,25 @@
 import { Card, Chevron, OwnersInitialView, ThemedText } from '@/components';
 import { spacing } from '@/constants';
-import mockDB from '@/services/mockDB';
 import { useRouter } from 'expo-router';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 
-export const OwnerListItem: React.FC = ({ }) => {
-  const router = useRouter();
+interface OwnerData {
+  data: any;
+}
 
-  const test = async () => {
-    
-    await mockDB.init();
-  }
+export const OwnerListItem: React.FC<OwnerData> = ({ data }) => {
+  const router = useRouter();
 
   return (
     <Pressable onPress={() => {
-      router.push('/owners/123')
-      test()
+      router.push(`/owners/${data?.id ?? ''}`)
     }}>
       <Card style={styles.card}>
-        <OwnersInitialView />
+        <OwnersInitialView data={data}/>
 
-        <ThemedText style={styles.flex}>Roman Pearce</ThemedText>
+        <ThemedText style={styles.flex}>
+          {`${data?.firstName} ${data?.lastName}`}
+        </ThemedText>
 
         <View style={styles.actionContainer}>
           <Image

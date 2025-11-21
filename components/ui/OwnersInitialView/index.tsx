@@ -4,9 +4,12 @@ import { StyleSheet, View } from 'react-native';
 import { OwnersInitialViewProps } from './types';
 
 export const OwnersInitialView: React.FC<OwnersInitialViewProps> = ({
+  data,
   size = 'default',
   preset = 'default',
 }) => {
+  const initials = `${data?.firstName[0]}${data?.lastName[0]}`.toUpperCase();
+
   const containerStyle = StyleSheet.flatten({
     ...styles.mainContainer,
     width: size === 'default' ? 40 : 56,
@@ -23,7 +26,7 @@ export const OwnersInitialView: React.FC<OwnersInitialViewProps> = ({
 
   return (
     <View style={containerStyle}>
-      <ThemedText style={labelStyle}>RP</ThemedText>
+      <ThemedText style={labelStyle}>{initials}</ThemedText>
     </View>
   );
 };
